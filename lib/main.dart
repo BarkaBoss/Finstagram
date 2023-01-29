@@ -1,4 +1,5 @@
 import 'package:finstagram/pages/login_screen.dart';
+import 'package:finstagram/pages/register_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,7 +17,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Login(),
+      initialRoute: 'login',
+      routes: {
+        'register':(context) => Register(),
+        'login':(context) => Login()
+      },
     );
   }
 }
