@@ -26,7 +26,12 @@ class _LoginState extends State<Login> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: [_titleWidget(), _loginForm(), _loginButton()],
+            children: [
+              _titleWidget(),
+              _loginForm(),
+              _loginButton(),
+              _registerPageLink()
+            ],
           ),
         ),
       )),
@@ -43,7 +48,7 @@ class _LoginState extends State<Login> {
 
   Widget _loginButton() {
     return MaterialButton(
-      onPressed: () {},
+      onPressed: _loginUser,
       minWidth: _deviceWidth! * 0.70,
       height: _deviceHeight! * 0.06,
       color: Colors.red,
@@ -63,10 +68,7 @@ class _LoginState extends State<Login> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              _emailTextField(),
-              _passwordTextField()
-            ],
+            children: [_emailTextField(), _passwordTextField()],
           )),
     );
   }
@@ -83,7 +85,7 @@ class _LoginState extends State<Login> {
         bool result = value!.contains(RegExp(
             r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"));
 
-        result ? null : "Please Enter a Valid Email";
+        return result ? null : "Please enter a valid email";
       },
     );
   }
@@ -101,5 +103,21 @@ class _LoginState extends State<Login> {
         validator: (value) => value!.length > 6
             ? null
             : "Password should be 6 characters minimum");
+  }
+
+  Widget _registerPageLink() {
+    return GestureDetector(
+      onTap: () => Navigator.pushNamed(context, 'register'),
+      child: const Text(
+        "Don't have and account?",
+        style: TextStyle(color: Colors.blue),
+      ),
+    );
+  }
+
+  void _loginUser() {
+    if (_loginFormKey.currentState!.validate()) {
+      _loginFormKey.currentState!.save();
+    }
   }
 }
