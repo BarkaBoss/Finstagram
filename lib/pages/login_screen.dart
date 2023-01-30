@@ -100,7 +100,7 @@ class _LoginState extends State<Login> {
             _password = value;
           });
         },
-        validator: (value) => value!.length > 6
+        validator: (value) => value!.length >= 6
             ? null
             : "Password should be 6 characters minimum");
   }

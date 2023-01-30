@@ -36,16 +36,15 @@ class _RegisterState extends State<Register> {
 
   Widget _titleWidget() {
     return const Text(
-      "Register",
+      "Finstagram",
       style: TextStyle(
           fontSize: 25, fontWeight: FontWeight.w600, color: Colors.black45),
     );
   }
 
   Widget _registerButton(){
-    return MaterialButton(onPressed: (){
-      _registerUser;
-    },
+    return MaterialButton(
+      onPressed: _registerUser,
       minWidth: _deviceWidth! * 0.7,
       height: _deviceHeight! * 0.06,
       color: Colors.red,
@@ -55,7 +54,7 @@ class _RegisterState extends State<Register> {
 
   Widget _registerForm(){
     return Container(
-      height: _deviceHeight! * 0.2,
+      height: _deviceHeight! * 0.3,
       child: Form(
         key: _registerFormKey,
           child: Column(
@@ -73,7 +72,7 @@ class _RegisterState extends State<Register> {
 
   Widget _emailTextField() {
     return TextFormField(
-      decoration: const InputDecoration(hintText: "Email Address..."),
+      decoration: const InputDecoration(hintText: "Email Address"),
       onSaved: (value) {
         setState(() {
           _email = value;
@@ -98,7 +97,7 @@ class _RegisterState extends State<Register> {
             _password = value;
           });
         },
-        validator: (value) => value!.length > 6
+        validator: (value) => value!.length >= 6
             ? null
             : "Password should be 6 characters minimum");
   }
@@ -111,7 +110,7 @@ class _RegisterState extends State<Register> {
           _name = value;
         });
       },
-      validator: (value)=> value!.isEmpty ? null : "Name can not be blank",
+      validator: (value)=> value!.length > 1 ? null : "Name can not be blank",
     );
   }
 
