@@ -10,7 +10,7 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   double? _deviceWidth, _deviceHeight;
   String? _name, _email, _password;
-  final GlobalKey<FormState> _registerFormState = GlobalKey<FormState>();
+  final GlobalKey<FormState> _registerFormKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,7 @@ class _RegisterState extends State<Register> {
     return Container(
       height: _deviceHeight! * 0.2,
       child: Form(
-        key: _registerFormState,
+        key: _registerFormKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             mainAxisSize: MainAxisSize.max,
@@ -116,8 +116,8 @@ class _RegisterState extends State<Register> {
   }
 
   void _registerUser(){
-    if(_registerFormState.currentState!.validate()){
-      _registerFormState.currentState!.save();
+    if(_registerFormKey.currentState!.validate()){
+      _registerFormKey.currentState!.save();
     }
   }
 }
