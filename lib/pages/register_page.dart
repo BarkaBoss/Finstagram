@@ -104,7 +104,7 @@ class _RegisterState extends State<Register> {
 
   Widget _nameTextField(){
     return TextFormField(
-      decoration: const InputDecoration(hintText: "Username"),
+      decoration: const InputDecoration(hintText: "Enter username"),
       onSaved: (value){
         setState(() {
           _name = value;
