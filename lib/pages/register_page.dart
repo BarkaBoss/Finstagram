@@ -117,6 +117,7 @@ class _RegisterState extends State<Register> {
       height: _deviceHeight! * 0.20,
       width: _deviceWidth! * 0.20,
       decoration: BoxDecoration(
+        shape: BoxShape.circle,
           image: DecorationImage(
               image: NetworkImage("https://i.pravatar.cc/300"))),
     );
