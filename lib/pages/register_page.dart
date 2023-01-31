@@ -26,7 +26,12 @@ class _RegisterState extends State<Register> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: [_titleWidget(), _registerForm(), _registerButton()],
+              children: [
+                _titleWidget(),
+                _profilePicture(),
+                _registerForm(),
+                _registerButton()
+              ],
             ),
           ),
         ),
@@ -42,21 +47,26 @@ class _RegisterState extends State<Register> {
     );
   }
 
-  Widget _registerButton(){
+  Widget _registerButton() {
     return MaterialButton(
       onPressed: _registerUser,
       minWidth: _deviceWidth! * 0.7,
       height: _deviceHeight! * 0.06,
       color: Colors.red,
-    child: const Text("Register", style: TextStyle(color: Colors.white,),),
+      child: const Text(
+        "Register",
+        style: TextStyle(
+          color: Colors.white,
+        ),
+      ),
     );
   }
 
-  Widget _registerForm(){
+  Widget _registerForm() {
     return Container(
       height: _deviceHeight! * 0.3,
       child: Form(
-        key: _registerFormKey,
+          key: _registerFormKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             mainAxisSize: MainAxisSize.max,
@@ -102,20 +112,30 @@ class _RegisterState extends State<Register> {
             : "Password should be 6 characters minimum");
   }
 
-  Widget _nameTextField(){
+  Widget _profilePicture() {
+    return Container(
+      height: _deviceHeight! * 0.20,
+      width: _deviceWidth! * 0.20,
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: NetworkImage("https://i.pravatar.cc/300"))),
+    );
+  }
+
+  Widget _nameTextField() {
     return TextFormField(
       decoration: const InputDecoration(hintText: "Enter username"),
-      onSaved: (value){
+      onSaved: (value) {
         setState(() {
           _name = value;
         });
       },
-      validator: (value)=> value!.length > 1 ? null : "Name can not be blank",
+      validator: (value) => value!.length > 1 ? null : "Name can not be blank",
     );
   }
 
-  void _registerUser(){
-    if(_registerFormKey.currentState!.validate()){
+  void _registerUser() {
+    if (_registerFormKey.currentState!.validate()) {
       _registerFormKey.currentState!.save();
     }
   }
