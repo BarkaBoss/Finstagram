@@ -1,5 +1,7 @@
 import 'dart:ffi';
+import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
@@ -10,6 +12,7 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   double? _deviceWidth, _deviceHeight;
   String? _name, _email, _password;
+  File? _profileImage;
   final GlobalKey<FormState> _registerFormKey = GlobalKey<FormState>();
 
   @override
@@ -113,13 +116,26 @@ class _RegisterState extends State<Register> {
   }
 
   Widget _profilePicture() {
-    return Container(
-      height: _deviceHeight! * 0.20,
-      width: _deviceWidth! * 0.20,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-          image: DecorationImage(
-              image: NetworkImage("https://i.pravatar.cc/300"))),
+    var imageProvider = _profileImage != null ? FileImage(_profileImage!) : const NetworkImage("https://i.pravatar.cc/300");
+    return GestureDetector(
+      onTap: (){
+        FilePicker.platform.pickFiles(
+          type: FileType.image
+        ).then((resultImage) {
+          setState(() {
+            _profileImage = File(resultImage!.files.first.path!);
+          });
+        });
+      },
+      child: Container(
+        height: _deviceHeight! * 0.20,
+        width: _deviceWidth! * 0.20,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+            image: DecorationImage(
+              fit: BoxFit.cover,
+                image: imageProvider as ImageProvider)),
+      ),
     );
   }
 
