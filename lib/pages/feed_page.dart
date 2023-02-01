@@ -10,10 +10,8 @@ class _FeedPageState extends State<FeedPage>{
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text("Feed Page"),
-      ),
+    return Container(
+      color: Colors.amber,
     );
   }
 }
