@@ -1,4 +1,7 @@
+import 'package:finstagram/pages/feed_page.dart';
+import 'package:finstagram/pages/home_page.dart';
 import 'package:finstagram/pages/login_screen.dart';
+import 'package:finstagram/pages/profile_page.dart';
 import 'package:finstagram/pages/register_page.dart';
 import 'package:flutter/material.dart';
 
@@ -15,12 +18,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.purple,
       ),
-      initialRoute: 'login',
+      initialRoute: 'home',
       routes: {
         'register':(context) => Register(),
-        'login':(context) => Login()
+        'login':(context) => Login(),
+        'home':(context) => HomePage(),
+        'feeds':(context) => FeedPage(),
+        'profile':(context) => ProfilePage(),
       },
     );
   }
