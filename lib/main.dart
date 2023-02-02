@@ -31,8 +31,6 @@ class MyApp extends StatelessWidget {
         'register':(context) => Register(),
         'login':(context) => Login(),
         'home':(context) => HomePage(),
-        'feeds':(context) => FeedPage(),
-        'profile':(context) => ProfilePage(),
       },
     );
   }
