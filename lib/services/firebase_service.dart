@@ -97,4 +97,13 @@ class FirebaseService {
         .orderBy('timestamp', descending: true)
         .snapshots();
   }
+  
+  Stream<QuerySnapshot> getUserPosts(){
+    String uid = _auth.currentUser!.uid;
+    return _db
+        .collection(POST_COLLECTION)
+        .where('userId', isEqualTo: uid)
+        //.orderBy('timestamp', descending: true)
+        .snapshots();
+  }
 }
