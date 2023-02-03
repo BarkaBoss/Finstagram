@@ -4,7 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:finstagram/pages/feed_page.dart';
 import 'package:finstagram/pages/profile_page.dart';
+import 'package:finstagram/services/firebase_service.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -12,6 +14,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  FirebaseService? _firebaseService;
+
+  @override
+  void initState() {
+    super.initState();
+    _firebaseService = GetIt.instance.get<FirebaseService>();
+  }
 
   int _currentPageIndex = 0;
   final List<Widget> _demoPages = [
@@ -60,5 +70,6 @@ class _HomePageState extends State<HomePage> {
   void _postImage() async{
     FilePickerResult? resultImage = await FilePicker.platform.pickFiles(type: FileType.image);
     File image = File(resultImage!.files.first.path!);
+    await _firebaseService!.postImage(image);
   }
 }
