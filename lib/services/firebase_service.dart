@@ -6,7 +6,9 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:path/path.dart' as p;
 
-final String USER_COLLECTION = "users";
+const String USER_COLLECTION = "users";
+const String POST_COLLECTION = "posts";
+
 class FirebaseService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
@@ -65,6 +67,27 @@ class FirebaseService {
       });
     }catch(e){
       debugPrint(e.toString());
+      return false;
+    }
+  }
+
+  Future<bool> postImage(File image) async{
+    try{
+      String userId = _auth.currentUser!.uid;
+      String fileName = Timestamp.now().millisecondsSinceEpoch.toString() +
+          p.extension(image.path);
+
+      UploadTask task = _storage.ref('images/$userId/$fileName').putFile(image);
+      return task.then((snapshot) async {
+        String downloadUrl = await snapshot.ref.getDownloadURL();
+        await _db.collection(POST_COLLECTION).add({
+          'userId': userId,
+          'timestamp': Timestamp.now(),
+          'image': downloadUrl,
+        });
+        return true;
+      });
+    }catch(e){
       return false;
     }
   }
