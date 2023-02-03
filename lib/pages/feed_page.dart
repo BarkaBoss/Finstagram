@@ -37,8 +37,23 @@ class _FeedPageState extends State<FeedPage>{
       stream: _firebaseService!.getLatestPosts(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if(snapshot.hasData){
-          print("feed>> $snapshot.data!");
-          return ListView();
+          List posts = snapshot.data!.docs.map((e) => e.data()).toList();
+          print("MY_POSTS $posts");
+          return ListView.builder(itemCount: posts.length, itemBuilder: (context, index){
+            Map post = posts[index];
+            return Container(
+              height: _deviceHeight! * 0.30,
+              margin: EdgeInsets.symmetric(
+                      vertical: _deviceHeight! * 0.01,
+                      horizontal: _deviceWidth! * 0.05),
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(post['image']),
+                    ),
+                  ),
+                );
+          });
         }else{
           return const Center(
             child: CircularProgressIndicator(),
