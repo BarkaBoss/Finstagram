@@ -41,7 +41,10 @@ class _HomePageState extends State<HomePage> {
           Padding(
             padding: const EdgeInsets.only(left: 10.0, right: 10.0),
             child: GestureDetector(
-              onTap: () {},
+              onTap: () async{
+                await _firebaseService!.logout();
+                Navigator.popAndPushNamed(context, 'login');
+              },
               child: const Icon(Icons.logout),
             ),
           ),
